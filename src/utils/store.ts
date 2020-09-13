@@ -17,6 +17,7 @@ const Reducer = (state, { type, payload }: any) => {
 		case 'LOGIN':
 			return {
 				serverName: payload.serverName,
+				serverURL: payload.serverURL,
 				username: payload.username,
 				token: payload.token,
 				logged: true
@@ -27,6 +28,11 @@ const Reducer = (state, { type, payload }: any) => {
 				token: null,
 				logged: false,
 				serverName: null
+			}
+		case 'SET_SERVER_URL':
+			return {
+				...state,
+				serverURL: payload.URL
 			}
 		default:
 			return state

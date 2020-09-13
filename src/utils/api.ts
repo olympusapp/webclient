@@ -1,10 +1,13 @@
-import { ServerURL } from 'Constants'
 import axios from 'axios'
 import AppStore from './store'
 
+const getServerUri = () => AppStore.getState().serverURL
+
 export const Login = ({ username, password }) => {
+	console.log(getServerUri())
+	
 	return new Promise((res) => {
-		axios.post(`${ServerURL}/api/login`,{
+		axios.post(`${getServerUri()}/api/login`,{
 			username,
 			password
 		}).then(({ data }) => {
@@ -15,7 +18,7 @@ export const Login = ({ username, password }) => {
 
 export const Signup = ({ username, password }) => {
 	return new Promise((res) => {
-		axios.post(`${ServerURL}/api/signup`,{
+		axios.post(`${getServerUri()}/api/signup`,{
 			username,
 			password
 		}).then(({ data }) => {
@@ -27,7 +30,7 @@ export const Signup = ({ username, password }) => {
 export const Explorer = (folder: string) => {
 	const { token, logged } = AppStore.getState()
 	if(!logged) return new Promise((res, rej)=> rej())
-	return axios.post(`${ServerURL}/api/explore`,{
+	return axios.post(`${getServerUri()}/api/explore`,{
 		startFolder: folder
 	},{
 		headers:{
@@ -39,7 +42,7 @@ export const Explorer = (folder: string) => {
 export const Upload = (formData, headers = {}) => {
 	const { token } = AppStore.getState()
 	
-	return axios.post(`${ServerURL}/api/upload`, formData,{
+	return axios.post(`${getServerUri()}/api/upload`, formData,{
 		headers:{
 			authorization:`bearer ${token}`,
 			...headers
@@ -51,7 +54,7 @@ export const Info = () => {
 	const { token } = AppStore.getState()
 	
 	return new Promise((res) => {
-		axios.get(`${ServerURL}/api/info`,{
+		axios.get(`${getServerUri()}/api/info`,{
 			headers:{
 				authorization:`bearer ${token}`
 			}
