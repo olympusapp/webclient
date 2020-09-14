@@ -4,12 +4,13 @@ import AppStore from './store'
 const getServerUri = () => AppStore.getState().serverURL
 
 export const Login = ({ username, password }) => {
-	console.log(getServerUri())
 	
 	return new Promise((res) => {
-		axios.post(`${getServerUri()}/api/login`,{
-			username,
-			password
+		axios.post(`${getServerUri()}/api/login`,{},{
+			headers:{
+				username,
+				password
+			}
 		}).then(({ data }) => {
 			res(data)
 		})
@@ -18,9 +19,11 @@ export const Login = ({ username, password }) => {
 
 export const Signup = ({ username, password }) => {
 	return new Promise((res) => {
-		axios.post(`${getServerUri()}/api/signup`,{
-			username,
-			password
+		axios.post(`${getServerUri()}/api/signup`,{},{
+			headers:{
+				username,
+				password
+			}
 		}).then(({ data }) => {
 			res(data)
 		})
