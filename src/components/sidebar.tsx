@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch  } from 'react-redux'
 import { logOff } from '../utils/actions'
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import Status from './status'
 
 const StyledSidebar = styled.div`
-	padding: 0px 5px;
+	padding: 0px 10px;
 	display: flex;
 	flex-direction: column;
 	background: ${props => props.theme.sidebar.background};
@@ -18,9 +18,16 @@ const StyledSidebar = styled.div`
 		color: black;
 		text-decoration: none;
 		padding: 10px;
-		background: ${props => props.theme.sidebar.buttons.background};
+		background: ${props => props.theme.sidebar.button.background};
 		border-radius: 7px;
 		margin: 2px 0px;
+		:hover{
+			background: ${props => props.theme.sidebar.button.hover.background};
+		}
+		&.active{
+			color: #015be8;
+			
+		}
 	}
 `
 
@@ -30,15 +37,15 @@ export default () => {
 	return (
 		<StyledSidebar>
 			<Status/>
-			<Link to="/">
+			<NavLink to="/" exact activeClassName="active">
 				Login
-			</Link>
-			<Link to="/signup">
+			</NavLink>
+			<NavLink to="/signup" exact activeClassName="active">
 				Signup
-			</Link>
-			<Link to="/explorer">
+			</NavLink>
+			<NavLink to="/explorer" activeClassName="active">
 				Explorer
-			</Link>
+			</NavLink>
 			<button onClick={() => dispatch(logOff())}>log off</button>
 		</StyledSidebar>
 	)

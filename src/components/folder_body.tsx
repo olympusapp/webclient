@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Upload } from '../utils/api'
 
 const StyledFolder = styled.div`
-	background: rgb(200,200,200,0.5);
+	background: ${props => props.theme.body.background};
 	border-radius: 5px;
 	width: 100%;
 	height: 100%;

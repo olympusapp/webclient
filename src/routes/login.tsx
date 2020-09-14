@@ -2,6 +2,8 @@ import * as React from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
+import Button from '../components/button'
+import Input from '../components/input'
 
 import { logIn, setServerURL } from '../utils/actions'
 import { Login } from '../utils/api'
@@ -45,10 +47,10 @@ export default () => {
 	return (
 		<div>
 			<h2>login</h2>
-			<input ref={UsernameInput} name="username" placeholder="Username"></input>
-			<input ref={PasswordInput} type="password" name="password"></input>
-			<input ref={ServerInput}name="serverurl" placeholder="Server URL"></input>
-			<button onClick={goLogin}>LOGIN</button>
+			<Input ref={UsernameInput} name="username" placeholder="Username"></Input>
+			<Input ref={PasswordInput} type="password" name="password" placeholder="Password"></Input>
+			<Input ref={ServerInput}name="serverurl" placeholder="Server URL"></Input>
+			<Button onClick={goLogin}>LOGIN</Button>
 			<p>{useStatus}</p>
 		</div>
 	)

@@ -23,7 +23,8 @@ const StyledCard = styled.div`
 	transition: 0.1s;
 	:hover{
 		transition: 0.1s;
-		box-shadow: 0px 1px 7px rgba(0,0,0,0.15);
+		background: ${props => props.theme.card.hover.background};
+		box-shadow: 0px 2px 3px rgba(0,0,0,0.25);
 	}
 	& > a {
 		padding: 5px;
