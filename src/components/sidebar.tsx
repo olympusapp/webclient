@@ -5,6 +5,7 @@ import { logOff } from '../utils/actions'
 import styled from 'styled-components'
 
 import Status from './status'
+import Button from '../components/button'
 
 const StyledSidebar = styled.div`
 	padding: 0px 10px;
@@ -46,7 +47,7 @@ export default () => {
 			<NavLink to="/explorer" activeClassName="active">
 				Explorer
 			</NavLink>
-			<button onClick={() => dispatch(logOff())}>log off</button>
+			<Button onClick={() => dispatch(logOff())}>log off</Button>
 		</StyledSidebar>
 	)
 }
