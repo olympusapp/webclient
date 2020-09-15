@@ -69,20 +69,23 @@ const CardsList = ({ path, list }) => {
 }
 
 
-class Communication {
-	private server: any;
-	constructor(){
-		this.server = new WebSocket('ws://localhost:3000/api/communication')
+
+window.addEventListener('load', () => {
+	const ServerURL = new URL(AppStore.getState().serverURL)
+	
+	const WSServer = `ws://${ServerURL.host}/api/communication`
+	
+	const WSConn = new WebSocket(WSServer)
 		
-		this.server.onopen = () => {
+		WSConn.onopen = () => {
 			const { token } = AppStore.getState()
 			const msg = {
 				type: 'AUTHENTIFICATION',
 				token
 			}
-			this.server.send(JSON.stringify(msg))
+			WSConn.send(JSON.stringify(msg))
 		}
-		this.server.onmessage = ({ data }) => {
+		WSConn.onmessage = ({ data }) => {
 			const parsedMessage = JSON.parse(data)
 			const { type } = parsedMessage
 			
@@ -92,11 +95,6 @@ class Communication {
 					break;
 			}
 		}
-	}
-}
-
-window.addEventListener('load', () => {
-	new Communication()
 })
 
 export default Panel

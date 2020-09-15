@@ -26,7 +26,7 @@ export default (props) => {
 		Upload(formData,{
 			folderpath: props.path
 		}).then(()=>{
-			console.log("UPLOADED")
+			//Uploaded
 		})
 	}
 	
