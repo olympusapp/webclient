@@ -20,9 +20,13 @@ const Panel = () => {
 	
 	function FSUpdated() {
 		Explorer(currentPath).then((res: any) => {
-			setList(res.data.folderPaths)
+			if(res.data.errorCode === 404){
+				setStatus('Not found')
+			}else{
+				setList(res.data.folderPaths)
+			}
 		}).catch(() => {
-			setStatus(false)
+			setStatus('Forbidden')
 		})
 	}
 	
@@ -38,7 +42,7 @@ const Panel = () => {
 	
 	return (
 		<div>
-			{useStatus? '': 'Forbidden'}
+			{useStatus}
 			<Switch>
 					<Route exact path={`/explorer${currentPath}`}>
 						{currentPath !== '' ? (
