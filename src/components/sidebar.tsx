@@ -15,19 +15,20 @@ const StyledSidebar = styled.div`
 	min-height: 100%;
 	min-width: 175px;
 	max-width: 175px;
+	& > *:not(div) {
+		margin: 2px 0px;
+	}
 	& > a {
 		color: black;
 		text-decoration: none;
 		padding: 10px;
 		background: ${props => props.theme.sidebar.button.background};
 		border-radius: 7px;
-		margin: 2px 0px;
 		:hover{
 			background: ${props => props.theme.sidebar.button.hover.background};
 		}
 		&.active{
 			color: #015be8;
-			
 		}
 	}
 `

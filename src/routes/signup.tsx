@@ -1,6 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../components/button'
 import Input from '../components/input'
@@ -11,6 +11,7 @@ import { Signup } from '../utils/api'
 export default () => {
 	
 	const dispatch = useDispatch()
+	const isLogged = useSelector(state => state.logged)
 	const UsernameInput = React.useRef(null)
 	const PasswordInput = React.useRef(null)
 	const ServerInput = React.useRef(null)
@@ -44,12 +45,20 @@ export default () => {
 	
 	return (
 		<div>
-			<h2>signup</h2>
-			<Input ref={UsernameInput} name="username" placeholder="Username"></Input>
-			<Input ref={PasswordInput} type="password" name="password" placeholder="Password"></Input>
-			<Input ref={ServerInput}name="serverurl" placeholder="Server URL"></Input>
-			<Button onClick={goSignup}>SIGNUP</Button>
-			<p>{useStatus}</p>
+			<h2>Signup</h2>
+			{isLogged ? (
+				<div>
+					<p>You are logged.</p>
+				</div>
+			):(
+				<div>
+					<Input ref={UsernameInput} name="username" placeholder="Username"></Input>
+					<Input ref={PasswordInput} type="password" name="password" placeholder="Password"></Input>
+					<Input ref={ServerInput}name="serverurl" placeholder="Server URL"></Input>
+					<Button onClick={goSignup}>SIGNUP</Button>
+					<p>{useStatus}</p>
+				</div>
+			)}
 		</div>
 	)
 }
