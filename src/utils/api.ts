@@ -66,3 +66,20 @@ export const Info = () => {
 		})
 	})
 }
+
+export const Download = (filePath: string) => {
+	const { token } = AppStore.getState()
+	
+	return new Promise((res) => {
+		axios.post(`${getServerUri()}/api/download`,{
+			filePath
+		},{
+			headers:{
+				authorization:`bearer ${token}`
+			}
+		}).then(response => {
+			res(response.data)
+		})
+	})
+}
+

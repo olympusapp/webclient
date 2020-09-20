@@ -67,7 +67,7 @@ const getCurrentPath = () => location.pathname.replace('/explorer','').replace(/
 const CardsList = ({ path, list }) => {
 	return list.map((data) => {
 		return (
-			<Card key={data.fileName} to={`/explorer${path}/${data.fileName}`} {...data}/>
+			<Card filePath={`${path}/${data.fileName}`} key={data.fileName} to={`/explorer${path}/${data.fileName}`} {...data}/>
 		)
 	})
 }
