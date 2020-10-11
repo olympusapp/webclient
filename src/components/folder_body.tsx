@@ -5,26 +5,33 @@ import { Upload } from '../utils/api'
 const StyledFolder = styled.div`
 	background: ${props => props.theme.body.background};
 	border-radius: 5px;
-	width: 100%;
-	height: 100%;
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
 	flex: 1;
+	padding: 10px;
 `
 
-export default (props) => {
+const StyledText = styled.p`
+	text-align: center;
+	color: rgb(80, 80, 80);
+	padding-top: 20px;
+`
+
+export default ({ path, children}) => {
 	
 	function onDrop(e){
 		e.preventDefault()
 		
 		const files = e.dataTransfer.files
 		const formData = new FormData()
-		formData.append('folderPath', props.path)
+		formData.append('folderPath', path)
 		for (let i = 0; i < files.length; i++) {
 			let file = files[i]
 			formData.append('file_upload', file)
 		}
 		
 		Upload(formData,{
-			folderpath: props.path
+			folderpath: path
 		}).then(()=>{
 			//Uploaded
 		})
@@ -35,6 +42,12 @@ export default (props) => {
 	}
 	
 	return (
-		<StyledFolder {...props} onDrop={onDrop} onDragOver={onDragHover}/>
+		
+			<StyledFolder onDrop={onDrop} onDragOver={onDragHover}>
+				{...children}
+				<StyledText>Drag and drop files to upload</StyledText>
+			</StyledFolder>
+
+			
 	)
 }

@@ -12,9 +12,9 @@ const AppTheme = {
 		background: 'white'
 	},
 	card:{
-		background: 'rgb(245,245,245)',
+		background: 'transparent',
 		hover: {
-			background: 'rgb(235,235,235)'
+			background: 'rgb(245,245,245)'
 		}
 	},
 	button:{

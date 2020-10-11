@@ -78,7 +78,8 @@ export const Download = (filePath: string) => {
 				authorization:`bearer ${token}`
 			}
 		}).then(response => {
-			res(response.data)
+			console.log(response)
+			res(response)
 		})
 	})
 }

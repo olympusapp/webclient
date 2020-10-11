@@ -13,7 +13,7 @@ const Events = new EventEmitter()
 const Panel = () => {
 
 	const [useList, setList] = React.useState([])
-	const [useStatus, setStatus] = React.useState(true)
+	const [useStatus, setStatus] = React.useState('')
 	const currentPath = getCurrentPath()
 	const pastPath = dirname(`/explorer${currentPath}`)
 	const pastFolder = basename(pastPath)

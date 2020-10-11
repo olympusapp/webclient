@@ -6,9 +6,6 @@ const StyledBody = styled.div`
 	overflow: auto;
 	width: 100%;
 	background: ${props => props.theme.body.background};
-	& > div {
-		padding: 15px 30px;
-	}
 `
 
 export default (props) => {

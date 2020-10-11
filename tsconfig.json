@@ -3,6 +3,7 @@
 		"jsx": "react"
 	},
 	"files":[
-		"./src/index.ts"
+		"./src/index.ts",
+		"./src/custom.d.ts" 
 	]
 }
