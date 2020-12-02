@@ -46,9 +46,11 @@ const Panel = () => {
 			<Switch>
 					<Route exact path={`/explorer${currentPath}`}>
 						{currentPath !== '' ? (
-							<Button>
-								<Link to={pastPath}>{`<-`} {pastFolder}</Link>
-							</Button>
+							<Link to={pastPath}>
+								<Button>
+									{`<-`} {pastFolder}
+								</Button>
+							</Link>
 						): ''}
 						<FolderBody path={currentPath}>
 							<CardsList path={currentPath} list={useList}/>
@@ -77,7 +79,7 @@ const CardsList = ({ path, list }) => {
 window.addEventListener('load', () => {
 	const ServerURL = new URL(AppStore.getState().serverURL)
 	
-	const WSServer = `ws://${ServerURL.host}/api/communication`
+	const WSServer = `ws://${ServerURL.host}/ext/memoria/communication`
 	
 	const WSConn = new WebSocket(WSServer)
 		

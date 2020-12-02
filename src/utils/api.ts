@@ -33,7 +33,7 @@ export const Signup = ({ username, password }) => {
 export const Explorer = (folder: string) => {
 	const { token, logged } = AppStore.getState()
 	if(!logged) return new Promise((res, rej)=> rej())
-	return axios.post(`${getServerUri()}/api/explore`,{
+	return axios.post(`${getServerUri()}/ext/memoria/explore`,{
 		startFolder: folder
 	},{
 		headers:{
@@ -45,7 +45,7 @@ export const Explorer = (folder: string) => {
 export const Upload = (formData, headers = {}) => {
 	const { token } = AppStore.getState()
 	
-	return axios.post(`${getServerUri()}/api/upload`, formData,{
+	return axios.post(`${getServerUri()}/ext/memoria/upload`, formData,{
 		headers:{
 			authorization:`bearer ${token}`,
 			...headers
@@ -71,7 +71,7 @@ export const Download = (filePath: string) => {
 	const { token } = AppStore.getState()
 	
 	return new Promise((res) => {
-		axios.post(`${getServerUri()}/api/download`,{
+		axios.post(`${getServerUri()}/ext/memoria/download`,{
 			filePath
 		},{
 			headers:{

@@ -70,6 +70,8 @@ interface CardProps {
 	filePath: string
 }
 
+
+
 export default ({ fileName, isDirectory, to, filePath }: CardProps) => {
 	return (
 		<StyledCard>
@@ -90,6 +92,8 @@ export default ({ fileName, isDirectory, to, filePath }: CardProps) => {
 }
 
 async function downloadFile(filename, text) {
-	const blob = new Blob([text]);
-	saveAs(blob, filename)
+	const blob = new Blob([text],{type: "application/x-msdownload;charset=utf-8"});
+	saveAs(blob, filename, {
+		autoBom: true
+	})
 }
