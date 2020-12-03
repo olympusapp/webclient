@@ -2,11 +2,12 @@ import * as React from 'react'
 import { Explorer } from '../utils/api'
 import Card from '../components/file_card'
 import Button from '../components/button'
-import { dirname, basename }  from 'path'
+import { dirname, basename, join }  from 'path'
 import AppStore from '../utils/store'
 import { useHistory , BrowserRouter, Route, Switch, Link, useParams, useRouteMatch } from 'react-router-dom'
 import * as EventEmitter from 'eventemitter3'
 import FolderBody from '../components/folder_body'
+import PathSteps from '../components/path_steps'
 
 const Events = new EventEmitter()
 
@@ -17,7 +18,7 @@ const Panel = () => {
 	const currentPath = getCurrentPath()
 	const pastPath = dirname(`/explorer${currentPath}`)
 	const pastFolder = basename(pastPath)
-	
+
 	function FSUpdated() {
 		Explorer(currentPath).then((res: any) => {
 			if(res.data.errorCode === 404){
@@ -29,10 +30,10 @@ const Panel = () => {
 			setStatus('Forbidden')
 		})
 	}
-	
+
 	React.useEffect(() => {
 		FSUpdated()
-		
+
 		Events.on('FILESYSTEM_UPDATED', FSUpdated)
 		
 		return () => Events.off('FILESYSTEM_UPDATED', FSUpdated)
@@ -40,21 +41,40 @@ const Panel = () => {
 	},[])
 
 	
+	function PathComponent(){
+		
+		let currentDir = ''
+		
+		return (
+			<PathSteps >
+				{currentPath.split('/').map(dir =>{
+					currentDir = join(currentDir,dir)
+					
+					const validRoute = join('/','explorer', currentDir)
+
+					return (
+						<React.Fragment key={currentDir}>
+							<a>/</a>
+							{currentDir === pastPath ?
+								<a className="step" href={validRoute}>{dir === '' ? 'explorer' : dir} </a> :
+								<Link className="step" to={validRoute}>{dir === '' ? 'explorer' : dir}</Link>
+							}
+						</React.Fragment>
+					)
+				})}
+			</PathSteps>
+		)
+	}
+	
 	return (
 		<div>
 			{useStatus}
 			<Switch>
-					<Route exact path={`/explorer${currentPath}`}>
-						{currentPath !== '' ? (
-							<Link to={pastPath}>
-								<Button>
-									{`<-`} {pastFolder}
-								</Button>
-							</Link>
-						): ''}
-						<FolderBody path={currentPath}>
-							<CardsList path={currentPath} list={useList}/>
-						</FolderBody>
+				<Route exact path={`/explorer${currentPath}`}>
+					<PathComponent/>
+					<FolderBody path={currentPath}>
+						<CardsList path={currentPath} list={useList}/>
+					</FolderBody>
 				</Route>
 				<Route path={`/explorer${currentPath}/:path`}>
 					<Panel/>

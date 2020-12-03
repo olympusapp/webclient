@@ -27,15 +27,21 @@ export default () => {
 
 	const options = [
 		{
+			label: 'Logoff',
+			action(){
+				dispatch(logOff())
+			}
+		},
+		{
 			label: 'Login',
 			action(){
 				history.push("/login")
 			}
 		},
 		{
-			label: 'Logoff',
+			label: 'Signup',
 			action(){
-				dispatch(logOff())
+				history.push("/signup")
 			}
 		}
 	]
