@@ -77,6 +77,9 @@ const CardsList = ({ path, list }) => {
 
 
 window.addEventListener('load', () => {
+	
+	if(!AppStore.getState().logged) return
+	
 	const ServerURL = new URL(AppStore.getState().serverURL)
 	
 	const WSServer = `ws://${ServerURL.host}/ext/memoria/communication`

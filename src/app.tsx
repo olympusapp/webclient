@@ -14,6 +14,7 @@ import { ThemeProvider, createGlobalStyle  } from 'styled-components'
 import LoginRoute from './routes/login'
 import SignupRoute from './routes/signup'
 import ExplorerRoute from './routes/explorer'
+import HomeRoute from './routes/home'
 
 import AppTheme from './utils/theme'
 
@@ -49,6 +50,9 @@ export default () =>{
 						<Body>
 							<Switch>
 								<Route exact path='/'>
+									<HomeRoute/>
+								</Route>
+								<Route exact path='/login'>
 									<LoginRoute/>
 								</Route>
 								<Route exact path='/signup'>

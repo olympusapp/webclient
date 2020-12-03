@@ -1,10 +1,14 @@
 const AppTheme = {
 	sidebar: {
-		background: 'rgb(245,245,245)',
+		background: 'white',
 		button:{
-			background: 'white',
+			background: '#FAFAFA',
 			hover:{
-				background: 'white'
+				background: '#F0F0F0'
+			},
+			active:{
+				background: '#EBF8FF',
+				color: '#0085FF',
 			}
 		}
 	},
@@ -29,6 +33,14 @@ const AppTheme = {
 			background: 'white'
 		},
 		background: 'rgb(230,230,230)'
+	},
+	dropdown:{
+		background: 'rgb(245,245,245)',
+		button:{
+			hover:{
+				background: 'rgb(255,255,255)',
+			}
+		}
 	}
 }
 

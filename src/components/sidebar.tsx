@@ -13,8 +13,8 @@ const StyledSidebar = styled.div`
 	flex-direction: column;
 	background: ${props => props.theme.sidebar.background};
 	min-height: 100%;
-	min-width: 175px;
-	max-width: 175px;
+	min-width: 215px;
+	max-width: 215px;
 	& > *:not(div) {
 		margin: 2px 0px;
 	}
@@ -28,27 +28,30 @@ const StyledSidebar = styled.div`
 			background: ${props => props.theme.sidebar.button.hover.background};
 		}
 		&.active{
-			color: #015be8;
+			color:  ${props => props.theme.sidebar.button.active.color};
+			background: ${props => props.theme.sidebar.button.active.background};
 		}
+	}
+	& .divider{
+		height: 1.5px;
+		margin: 4px auto;
+		width: 65%;
+		background: rgba(215, 215, 215);
+		border-radius: 5px;
 	}
 `
 
 export default () => {
-	const dispatch = useDispatch()
-	
 	return (
 		<StyledSidebar>
 			<Status/>
 			<NavLink to="/" exact activeClassName="active">
-				Login
+				Home
 			</NavLink>
-			<NavLink to="/signup" exact activeClassName="active">
-				Signup
-			</NavLink>
+			<div className="divider"/>
 			<NavLink to="/explorer" activeClassName="active">
 				Explorer
 			</NavLink>
-			<Button onClick={() => dispatch(logOff())}>log off</Button>
 		</StyledSidebar>
 	)
 }
