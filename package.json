@@ -1,11 +1,10 @@
 {
 	"name": "olympus-webclient",
 	"version": "1.0.0",
-	"description": "",
-	"main": "scripts.js",
+	"description": "Webclient for olympus",
 	"scripts": {
-		"start:webclient": "cross-env NODE_ENV=development webpack-dev-server",
-		"build:webclient": "cross-env NODE_ENV=production webpack"
+		"start": "cross-env NODE_ENV=development webpack-dev-server",
+		"build": "cross-env NODE_ENV=production webpack"
 	},
 	"author": "Marc Espín Sanz",
 	"license": "MIT",
@@ -19,6 +18,7 @@
 		"react-router-dom": "^5.2.0",
 		"redux": "^4.0.5",
 		"redux-localstorage": "^0.4.1",
+		"simple-encryptor": "^4.0.0",
 		"styled-components": "^5.2.0"
 	},
 	"devDependencies": {

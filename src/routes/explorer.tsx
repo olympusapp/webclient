@@ -4,22 +4,22 @@ import Card from '../components/file_card'
 import Button from '../components/button'
 import { dirname, basename, join }  from 'path'
 import AppStore from '../utils/store'
-import { useHistory , BrowserRouter, Route, Switch, Link, useParams, useRouteMatch } from 'react-router-dom'
-import * as EventEmitter from 'eventemitter3'
+import { useLocation, useHistory , BrowserRouter, Route, Switch, Link, useParams, useRouteMatch } from 'react-router-dom'
+import EventEmitter from 'eventemitter3'
 import FolderBody from '../components/folder_body'
 import PathSteps from '../components/path_steps'
+import { createEncryptor } from 'simple-encryptor'
 
 const Events = new EventEmitter()
 
 const Panel = () => {
-
 	const [useList, setList] = React.useState([])
 	const [useStatus, setStatus] = React.useState(true)
-	const currentPath = getCurrentPath()
+	const currentPath = useLocation().pathname.replace('/explorer','')
 	const pastPath = dirname(`/explorer${currentPath}`)
 	const pastFolder = basename(pastPath)
-
-	function FSUpdated() {
+	
+	function renderCards(){
 		Explorer(currentPath).then((res: any) => {
 			if(res.data.errorCode === 404){
 				setStatus('Not found')
@@ -30,23 +30,21 @@ const Panel = () => {
 			setStatus('Forbidden')
 		})
 	}
-
+	
 	React.useEffect(() => {
-		FSUpdated()
-
-		Events.on('FILESYSTEM_UPDATED', FSUpdated)
+		renderCards()
 		
-		return () => Events.off('FILESYSTEM_UPDATED', FSUpdated)
-		
-	},[])
+		Events.on('FILESYSTEM_UPDATED', renderCards)
 
+		return () => Events.off('FILESYSTEM_UPDATED', renderCards)
+	},[currentPath])
 	
 	function PathComponent(){
 		
 		let currentDir = ''
 		
 		return (
-			<PathSteps >
+			<PathSteps>
 				{currentPath.split('/').map(dir =>{
 					currentDir = join(currentDir,dir)
 					
@@ -65,36 +63,24 @@ const Panel = () => {
 			</PathSteps>
 		)
 	}
-	
+
+	const CardsList = ({ path, list }) => {
+		return list.map((data) => {
+			return (
+				<Card to={'/explorer'+path +'/'+ data.fileName} filePath={`${path}/${data.fileName}`} key={data.fileName} {...data}/>
+			)
+		})
+	}
+
 	return (
 		<div>
-			{useStatus}
-			<Switch>
-				<Route exact path={`/explorer${currentPath}`}>
-					<PathComponent/>
-					<FolderBody path={currentPath}>
-						<CardsList path={currentPath} list={useList}/>
-					</FolderBody>
-				</Route>
-				<Route path={`/explorer${currentPath}/:path`}>
-					<Panel/>
-				</Route>
-			</Switch>
+			<PathComponent/>
+			<FolderBody path={currentPath}>
+				<CardsList path={currentPath} list={useList} />
+			</FolderBody>
 		</div>
 	)
 }
-
-const getCurrentPath = () => location.pathname.replace('/explorer','').replace(/(%20)/gm,' ')
-
-const CardsList = ({ path, list }) => {
-	return list.map((data) => {
-		return (
-			<Card filePath={`${path}/${data.fileName}`} key={data.fileName} to={`/explorer${path}/${data.fileName}`} {...data}/>
-		)
-	})
-}
-
-
 
 window.addEventListener('load', () => {
 	

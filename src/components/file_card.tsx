@@ -72,9 +72,9 @@ interface CardProps {
 
 
 
-export default ({ fileName, isDirectory, to, filePath }: CardProps) => {
+export default ({  fileName, isDirectory, to, filePath }: CardProps) => {
 	return (
-		<StyledCard>
+		<StyledCard >
 			{isDirectory ? (
 				<Link to={to}>
 					<span>{fileName}</span>

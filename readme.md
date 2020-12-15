@@ -24,7 +24,7 @@ npm install
 ### Developing
 Now run:
 ```shell
-start:webclient
+npm run start
 ```
 
 The webclient now runs in port 5000
@@ -33,6 +33,6 @@ The webclient now runs in port 5000
 
 Run:
 ```shell
-build:webclient
+npm run build
 ```
 
